@@ -1,0 +1,34 @@
+{
+	"id": "3bd7ffa5-0791-4d04-85ef-601d63ba2e9e",
+	"values": [
+		{
+			"key": "globalToken",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "prodId",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "emailID",
+			"value": "jatinvsharma@gmail.com",
+			"enabled": true
+		},
+		{
+			"key": "URL",
+			"value": "139.59.91.96:3000",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "123123123",
+			"enabled": true
+		}
+	],
+	"name": "At_Batch_July Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2020-08-08T18:17:54.318Z",
+	"_postman_exported_using": "Postman/7.29.1"
+}

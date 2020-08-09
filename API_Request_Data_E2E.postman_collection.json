@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "1e9a7ba9-7163-498c-b645-23968e7b4f00",
+		"name": "API_Request_Data_E2E",
+		"description": "Examples for API Request. Such as GET,POST,PUT and DELEte",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "81297d5e-dff4-40db-b818-30a499ddf9e5",
+						"exec": [
+							"var jsonResponse = pm.response.json();",
+							"var token = jsonResponse.data.token; ",
+							"console.log(token);",
+							"pm.globals.set(\"globalToken\",token)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "418c6799-2ccd-4c6e-8a0a-11ab064cf33b",
+						"exec": [
+							"var email=pm.iterationData.get(\"emailAddress\");",
+							"pm.variables.set(\"email\",email);",
+							"",
+							"var password=pm.iterationData.get(\"password\");",
+							"pm.variables.set(\"password\",password);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n\n\"email\": \"{{emailID}}\",\n\n\"password\": \"{{password}}\"\n\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{URL}}/user/signin",
+					"protocol": "http",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						"signin"
+					]
+				},
+				"description": "E2E Sample-Performs Login to the application via API,\r\nCreates a valid token to be used for other requests."
+			},
+			"response": []
+		},
+		{
+			"name": "Add Product API",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "daa81ddb-d180-452c-86f2-9152f25158f0",
+						"exec": [
+							"var prodName=pm.iterationData.get(\"prodName\");\r",
+							"pm.variables.set(\"prodName\",prodName);\r",
+							"\r",
+							"var prodDesc=pm.iterationData.get(\"prodDesc\");\r",
+							"pm.variables.set(\"prodDesc\",prodDesc);\r",
+							"\r",
+							"var prodPrice=pm.iterationData.get(\"prodPrice\");\r",
+							"pm.variables.set(\"prodPrice\",prodPrice);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0948cbdc-7dbb-4728-a81b-908af01bdbca",
+						"exec": [
+							"var jsonRespone = pm.response.json();",
+							"var prodId = jsonRespone.data.id;",
+							"pm.globals.set(\"prodId\",prodId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{globalToken}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n\n\"prod_name\": \"{{prodName}}\",\n\n\"prod_desc\": \"{{prodDesc}}\",\n\n\"prod_price\": \"{{prodPrice}}\" \n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://139.59.91.96:3000/api/v1/products",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Prod",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{globalToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{URL}}/api/v1/products/{{prodId}}",
+					"protocol": "http",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{prodId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Prod",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a62038fe-3955-4597-a65d-93193eb7a02f",
+						"exec": [
+							"var uprodName=pm.iterationData.get(\"uprodName\");\r",
+							"pm.variables.set(uprodName,\"uprodName\");\r",
+							"\r",
+							"var uprodDesc=pm.iterationData.get(\"uprodDesc\");\r",
+							"pm.variables.set(uprodName,\"uprodDesc\");\r",
+							"\r",
+							"var uprodPrice=pm.iterationData.get(\"uprodPrice\");\r",
+							"pm.variables.set(uprodName,\"uprodPrice\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{globalToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n\n\"prod_name\": \"uprodName\",\n\n\"prod_desc\": \"uprodDesc\",\n\n\"prod_price\": \"uprodPrice\"\n\n}\t\n",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "http://139.59.91.96:3000/api/v1/products/{{prodId}}",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{prodId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProd",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{globalToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://139.59.91.96:3000/api/v1/products/{{prodId}}",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{prodId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read Prod Final",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{globalToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://139.59.91.96:3000/api/v1/products/{{prodId}}",
+					"protocol": "http",
+					"host": [
+						"139",
+						"59",
+						"91",
+						"96"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{prodId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2859ec5a-a4dc-4568-9ac4-1d4f47cba9a7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "52504bfa-565e-4ae6-83b9-685b6b790f42",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
