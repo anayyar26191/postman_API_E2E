@@ -325,7 +325,51 @@
 					]
 				}
 			},
-			"response": []
+			"response": [
+				{
+					"name": "Read Prod Final",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{globalToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://139.59.91.96:3000/api/v1/products/{{prodId}}",
+							"protocol": "http",
+							"host": [
+								"139",
+								"59",
+								"91",
+								"96"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"{{prodId}}"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
 		}
 	],
 	"event": [
